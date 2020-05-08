@@ -40,16 +40,25 @@ class AwesomeDict(UserDict, object):
         super().__init__(*args, **kargs)
 
     @property
+    def parent(self):
+        '''Returns the parent AwesomeDict or None'''
+
+        try:
+            return self._parent
+        except AttributeError:
+            return None
+
+    @property
     def conf(self):
+        '''Returns the configuration (defaults and regex filter)'''
+
         try:
             return self._conf
         except AttributeError:
-            try:
-                p = self._parent
-            except AttributeError:
+            if self.parent is None:
                 self._conf = deepcopy(self.__class__._default_conf)
             else:
-                self._conf = deepcopy(p.conf)
+                self._conf = deepcopy(self.parent.conf)
             return self._conf
 
     def _new_child(self, *args, **kargs):
@@ -104,13 +113,11 @@ class AwesomeDict(UserDict, object):
 
         def _filter(md, empty_is_None=False):
             # create a new empty dictionary of the same parent as md
-            try:
-                p = md._parent
-            except AttributeError:
+            if md.parent is None:
                 res = md.__class__()
                 res.conf.update(md.conf)
             else:
-                res = p._new_child()
+                res = md.parent._new_child()
             for k, v in md.items():
                 if re.search(_get_filter(regex, md), str(k)):
                     res[k] = v
