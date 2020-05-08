@@ -7,6 +7,10 @@ The instances also have a `filter` method which can filter based on
 a regular expression matched against the key or value. A default regex for
 filter can be set with `set_filter`.
 
+# INSTALLATION
+
+`pip install awesomedict`
+
 # EXAMPLE USAGE
 
 ```python
