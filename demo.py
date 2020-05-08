@@ -1,8 +1,8 @@
-from magicdict import MagicDict
+from awesomedict import AwesomeDict
 import json
 
 # create a default order
-mdorder = MagicDict().set_defaults(
+mdorder = AwesomeDict().set_defaults(
     {
         '^price$': 0,
         '_address$': 'No such street, PO 000'
@@ -12,7 +12,7 @@ mdorder['price']
 mdorder['shipping_address']
 mdorder['billing_address']
 
-md = MagicDict().set_defaults(
+md = AwesomeDict().set_defaults(
     {'^[0-9]+$': mdorder}, do_copy=True).set_filter('^!')
 md['customers']['foo'][1]['price'] = 15
 md['customers']['foo'][1]['items'].append('notebook')

@@ -1,4 +1,4 @@
-from .magicdict import MagicDict
+from .awesomedict import AwesomeDict
 
 import logging as _logging
 try:  # Python 2.7+

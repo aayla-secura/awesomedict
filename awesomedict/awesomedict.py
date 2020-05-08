@@ -21,7 +21,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
-class MagicDict(UserDict, object):
+class AwesomeDict(UserDict, object):
     '''Never raises KeyError, sets the requested key if missing
 
     The set_defaults and set_filter methods can configure the
@@ -31,7 +31,7 @@ class MagicDict(UserDict, object):
     - set_defaults is a dictionary of regex--value pairs; the value is
       returned whenever a missing key matching the regex is accessed.
       If a missing key doesn't match any defined default, then a new
-      MagicDict is returned (and the configuration is copied to it).
+      AwesomeDict is returned (and the configuration is copied to it).
     '''
 
     _default_conf = {'defaults': {}, 'filter_re': None}
@@ -86,14 +86,14 @@ class MagicDict(UserDict, object):
                     # a deepcopy of it
                     self[key] = val_cbk()
                     return self[key]
-            self[key] = {}  # will be converted to MagicDict
+            self[key] = {}  # will be converted to AwesomeDict
             return self[key]
 
     def filter(self, regex=None):
         '''Filters dictionary based on the given filter
 
         If regex is None, then the dictionary's default filter (set
-        with set_filter) is used, and when another MagicDict is found
+        with set_filter) is used, and when another AwesomeDict is found
         as a child, its default filter is used.
         '''
 
@@ -114,7 +114,7 @@ class MagicDict(UserDict, object):
             for k, v in md.items():
                 if re.search(_get_filter(regex, md), str(k)):
                     res[k] = v
-                elif isinstance(v, MagicDict):
+                elif isinstance(v, AwesomeDict):
                     f = _filter(v, empty_is_None=True)
                     if f is not None:
                         res[k] = f
@@ -133,7 +133,7 @@ class MagicDict(UserDict, object):
 
         - If append is True then the given regex is OR'd with the
           current one (i.e. appended as {current}|{new}.
-        Returns the MagicDict instance itself.
+        Returns the AwesomeDict instance itself.
         '''
 
         new_filter = regex
@@ -153,7 +153,7 @@ class MagicDict(UserDict, object):
           defaults are deepcopied before being set on new items. This
           option applies only to the values given during this call and
           does not override the setting of previously set defaults.
-        Returns the MagicDict instance itself.
+        Returns the AwesomeDict instance itself.
         '''
 
         def transformer(obj):

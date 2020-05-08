@@ -2,7 +2,7 @@
 
 A magic dictionary which never raises KeyError but creates non-existent
 items as they are requested. By default newly created items in this way are
-an empty instance of `MagicDict`, but that can be set with `set_defaults`.
+an empty instance of `AwesomeDict`, but that can be set with `set_defaults`.
 The instances also have a `filter` method which can filter based on
 a regular expression matched against the key or value. A default regex for
 filter can be set with `set_filter`.
@@ -10,11 +10,11 @@ filter can be set with `set_filter`.
 # EXAMPLE USAGE
 
 ```python
-from magicdict import MagicDict
+from awesomedict import AwesomeDict
 import json
 
 # create a default order
-mdorder = MagicDict().set_defaults(
+mdorder = AwesomeDict().set_defaults(
     {
         '^price$': 0,
         '_address$': 'No such street, PO 000'
@@ -24,7 +24,7 @@ mdorder['price']
 mdorder['shipping_address']
 mdorder['billing_address']
 
-md = MagicDict().set_defaults(
+md = AwesomeDict().set_defaults(
     {'^[0-9]+$': mdorder}, do_copy=True).set_filter('^!')
 md['customers']['foo'][1]['price'] = 15
 md['customers']['foo'][1]['items'].append('notebook')
