@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='awesomedict',
-    version='0.1',
+    version='0.1.1',
     url='https://github.com/aayla-secura/awesomedict',
     author='AaylaSecura1138',
     author_email='aayla.secura.1138@gmail.com',
